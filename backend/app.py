@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from db.config import db
 from routes.auth import auth_bp
+from routes.product import product_bp
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 
@@ -19,6 +20,7 @@ jwt = JWTManager(app)
 
 #register blueprints
 app.register_blueprint(auth_bp)
+app.register_blueprint(product_bp)
 
 #create tables
 with app.app_context():
