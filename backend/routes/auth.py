@@ -14,8 +14,8 @@ def register():
     password = generate_password_hash(data.get('password'))
     
     user = User(name=name, email=email, password=password)
-    db.session.add(user)
-    db.session.commit()
+    db.session.add(user) # “Please queue this new user to be inserted into the database.”
+    db.session.commit() # “Please commit the changes to the database.”  
     
     return jsonify({"message": "User registered successfully"}), 400
     
