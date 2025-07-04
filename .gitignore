@@ -12,5 +12,6 @@ frontend/build/
 .DS_Store
 *.log   
 
-#db
+# Ignore SQLite DB
 backend/instance/ecokart.db
+
