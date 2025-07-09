@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 
-const ProductDetail = () => {
-  const { id } = useParams();  // 👈 Get product ID from URL
+// ✅ Accept cartItems and setCartItems as props
+const ProductDetail = ({ cartItems, setCartItems }) => {
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 🔄 Fetch product data by ID from backend
+  // 🔄 Fetch product by ID
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -21,7 +22,6 @@ const ProductDetail = () => {
         setLoading(false);
       }
     };
-
     fetchProduct();
   }, [id]);
 
@@ -55,6 +55,29 @@ const ProductDetail = () => {
           <p><strong>Stock:</strong> {product.stock}</p>
           <p><strong>Description:</strong> {product.description}</p>
           <p><strong>Eco Score:</strong> <span style={{ color: 'green' }}>{'🌿'.repeat(product.eco_score)}</span></p>
+
+          <button
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: 'green',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              marginTop: '1rem'
+            }}
+            onClick={() => {
+              const exists = cartItems.find(item => item.id === product.id);
+              if (!exists) {
+                setCartItems([...cartItems, { ...product, quantity: 1 }]);
+                alert('✅ Added to cart!');
+              } else {
+                alert('🛒 Item already in cart');
+              }
+            }}
+          >
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
