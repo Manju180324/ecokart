@@ -5,6 +5,7 @@ from routes.auth import auth_bp
 from routes.product import product_bp
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
+from routes.checkout import checkout_bp
 
 app = Flask(__name__)
 CORS(app)
@@ -21,6 +22,7 @@ jwt = JWTManager(app)
 #register blueprints
 app.register_blueprint(auth_bp)
 app.register_blueprint(product_bp)
+app.register_blueprint(checkout_bp)
 
 #create tables
 with app.app_context():
